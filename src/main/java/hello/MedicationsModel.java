@@ -20,6 +20,12 @@ public class MedicationsModel {
     this.name = name;
   }
   
+  public MedicationsModel(String id, String name) {
+    super();
+    this.id = id;
+    this.name = name;
+  }
+  
   public String getId() {
     return id;
   }
