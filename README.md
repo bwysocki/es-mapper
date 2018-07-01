@@ -36,5 +36,11 @@ PUT /users/_doc/1
 }
 ```
 
+- shard - contains a subset of and index data. It allows to split big volumes of data. Operations can also be distributed on many nodes (parallelized). Number of shards can be specified at index creation (default 5). After index creation, there is no way to change number of shards (workaround - create new index and migrate data).
 
+- replication - replication in ElasticSearch is synchronous. By default there is 1 replica for each shard (default 5 shards + 5 replicas)
+
+- coordinating node - node responsible for the request. Forwards request to other shards and then merges subresponses to the final response
+
+- routing - a way to determine which shard has/should have a document: shard = hash(routing) % total_primary_shards. By default the 'routing' value will be equal a given document's ID
 
