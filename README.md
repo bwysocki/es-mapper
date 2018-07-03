@@ -80,6 +80,34 @@ GET /indexName/_doc/{api}
 - UPDATING 
 
 ```
-POST /indexName/_doc/{id}/_update 
-{ doc: {} }
+POST biomarkers/_doc/BIO-1/_update
+{
+  "doc": {
+    "description": "Super important Biomarker"
+  }
+}
+or with scripting
+
+POST biomarkers/_doc/BIO-1/_update
+{
+  "script": "ctx._source.description += '!!!'"
+}
+```
+
+- UPSERT
+
+```
+POST biomarkers/_doc/BIO-1/_update
+{
+    "script" : {
+        "source": "ctx._source.counter += params.count",
+        "lang": "painless",
+        "params" : {
+            "count" : 4
+        }
+    },
+    "upsert" : {
+        "counter" : 1
+    }
+}
 ```
