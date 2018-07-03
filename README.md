@@ -44,3 +44,42 @@ PUT /users/_doc/1
 
 - routing - a way to determine which shard has/should have a document: shard = hash(routing) % total_primary_shards. By default the 'routing' value will be equal a given document's ID
 
+### ElasticSearch queries
+
+
+- CREATION
+
+```
+PUT /indexName
+```
+
+- INSERTING
+
+```
+POST /indexName/_doc
+{}
+
+//with specified ID / replacing: 
+PUT /indexName/_doc/{id} 
+{}
+```
+
+- RETRIVING: 
+
+```
+GET /indexName/_doc/{id}
+```
+
+- SEARCHING
+
+```
+GET /indexName/_doc/{api} 
+//Example: GET /biomarkers/_doc/_search
+```
+
+- UPDATING 
+
+```
+POST /indexName/_doc/{id}/_update 
+{ doc: {} }
+```
