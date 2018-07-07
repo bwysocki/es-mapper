@@ -111,3 +111,46 @@ POST biomarkers/_doc/BIO-1/_update
     }
 }
 ```
+
+- DELETION
+
+```
+DELETE biomarkers/_doc/BIO-1
+POST biomarkers/_delete_by_query 
+{
+	"query" : {
+		"match" : {
+			"category": "xyz"
+		}
+	}
+}
+DELETE biomarkers <-- deletes the whole index
+```
+
+### Batch processing (importing data)
+
+
+- BATCH INSERT
+```
+POST biomarkers/_doc/_bulk 
+{ "index": { "_id": "BIO-1" } }
+{ "name": "My biomarker" }
+{ "index": { "_id": "BIO-2" } }
+{ "name": "My second biomarker" }
+```
+
+- BATCH UPDATE
+```
+POST biomarkers/_doc/_bulk 
+{ "update": { "_id": "BIO-1" } }
+{ "doc": { "importance": "HIGH" }}
+{ "update": { "_id": "BIO-2" } }
+{ "doc": { "importance": "LOW" }}
+{ "delete": { "_id": "BIO-3" } }
+```
+
+With curl youy can perform following operation (test-data.json is attached to the project):
+```
+..\..\curl\bin\curl.exe -H "Content-Type: application/json" -XPOST "http://localhost:9200/product/_doc/_bulk?pretty" --data-binary "@test-data.json"
+```
+
