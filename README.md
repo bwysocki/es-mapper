@@ -149,8 +149,20 @@ POST biomarkers/_doc/_bulk
 { "delete": { "_id": "BIO-3" } }
 ```
 
-With curl youy can perform following operation (test-data.json is attached to the project):
+With curl you can perform following operation (test-data.json is attached to the project):
 ```
 ..\..\curl\bin\curl.exe -H "Content-Type: application/json" -XPOST "http://localhost:9200/product/_doc/_bulk?pretty" --data-binary "@test-data.json"
 ```
+
+### Cat API
+
+```
+GET /_cat/health?v - general info about cluster
+GET /_cat/nodes?v - nodes info + IPs
+GET /_cat/indices?v - info about indices
+GET /_cat/allocation?v - how shards are allocated
+GET /_cat/shards?v - show all (primary + replica shards)
+```
+
+### Cluster API
 
