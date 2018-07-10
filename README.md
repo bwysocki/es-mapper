@@ -154,6 +154,44 @@ With curl you can perform following operation (test-data.json is attached to the
 ..\..\curl\bin\curl.exe -H "Content-Type: application/json" -XPOST "http://localhost:9200/product/_doc/_bulk?pretty" --data-binary "@test-data.json"
 ```
 
+### Mappings - schema
+
+Dynamic mapping - when adding new documents, ES will automatically add mappings for any fields:
+
+```
+GET /biomarkers/_doc/_mapping  - presents dynamic mappings
+```
+
+Meta fields:
+- _index - name of index to which a doc belongs
+- _id
+- _source - orginal JSON passed to ES
+- _field_names
+- _routing - stores a val used to route a doc to a shard
+- _version - internal version
+- _meta - custom fields
+
+Data types:
+1. Core
+- text (descriptions, blog posts) - analyzed
+- keyword  (structured data: tags, categories, email addressed) - not analyzed
+- numeric (float, long, short, byte, half_float, scaled_float, integer, double)
+- date
+- boolean
+- binary (accepts base64 encoded)
+- range (e.g. 10-20)
+2. Complex
+- object
+- array (all values should have the same type)
+- nested - (solves problem of array of objects)
+3. Geo
+- geo_point
+- geo_shape (more complex like polygon)
+4. Specialized
+- IP
+- completion (for autocomplete functionality)
+- attachment
+
 ### Cat API
 
 ```
