@@ -59,12 +59,12 @@ PUT /indexName
 POST /indexName/_doc
 {}
 
-//with specified ID / replacing: 
-PUT /indexName/_doc/{id} 
+//with specified ID / replacing:
+PUT /indexName/_doc/{id}
 {}
 ```
 
-- RETRIVING: 
+- RETRIVING:
 
 ```
 GET /indexName/_doc/{id}
@@ -73,11 +73,11 @@ GET /indexName/_doc/{id}
 - SEARCHING
 
 ```
-GET /indexName/_doc/{api} 
+GET /indexName/_doc/{api}
 //Example: GET /biomarkers/_doc/_search
 ```
 
-- UPDATING 
+- UPDATING
 
 ```
 POST biomarkers/_doc/BIO-1/_update
@@ -116,7 +116,7 @@ POST biomarkers/_doc/BIO-1/_update
 
 ```
 DELETE biomarkers/_doc/BIO-1
-POST biomarkers/_delete_by_query 
+POST biomarkers/_delete_by_query
 {
 	"query" : {
 		"match" : {
@@ -132,7 +132,7 @@ DELETE biomarkers <-- deletes the whole index
 
 - BATCH INSERT
 ```
-POST biomarkers/_doc/_bulk 
+POST biomarkers/_doc/_bulk
 { "index": { "_id": "BIO-1" } }
 { "name": "My biomarker" }
 { "index": { "_id": "BIO-2" } }
@@ -141,7 +141,7 @@ POST biomarkers/_doc/_bulk
 
 - BATCH UPDATE
 ```
-POST biomarkers/_doc/_bulk 
+POST biomarkers/_doc/_bulk
 { "update": { "_id": "BIO-1" } }
 { "doc": { "importance": "HIGH" }}
 { "update": { "_id": "BIO-2" } }
@@ -204,3 +204,4 @@ GET /_cat/shards?v - show all (primary + replica shards)
 
 ### Cluster API
 
+### My next steps
