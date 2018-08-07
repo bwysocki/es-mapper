@@ -192,6 +192,55 @@ Data types:
 - completion (for autocomplete functionality)
 - attachment
 
+Adding mappings: (mappings can not be changed)
+
+```
+PUT /indexName/_doc/_mapping 
+{
+	"properties": {
+		"discount" : {
+			"type": "double"
+		}
+	}
+}
+``` - to existing indices
+
+```
+PUT /indexName
+{
+	"mappings": {
+		"_doc" : {
+			"dynamic": false,
+			"properties": {
+				"discount" : {
+					"type": "double"
+				}
+			}
+		}
+	}
+}
+``` - to existing indices
+
+Mappings parameters:
+- coerce: attempts to clean up dirty values to fit the datatype of a field
+- copy_to: the values of multiple fields can be copied into a group field, which can then be queried as a single field 
+- dynamic
+- properties
+- norms: Norms store various normalization factors that are later used at query time in order to compute the score of a document relatively to a query. Although useful for scoring, norms also require quite a lot of disk (typically in the order of one byte per document per field in your index, even for documents that don’t have this specific field). As a consequence, if you don’t need scoring on a specific field, you should disable norms on that field. In particular, this is the case for fields that are used solely for filtering or aggregations
+- format
+- null_values: something like 'default'
+- fields: it is often useful to index the same field in different ways for different purposes. This is the purpose of multi-fields. For instance, a string field could be mapped as a text field for full-text search, and as a keyword field for sorting or aggregations:
+
+
+Dynamic problem mapping:
+1. Disable dynamic mapping
+2. Add doc to index with some 'field'
+3. Add mapping for that 'field'
+4. Search for that 'field'
+5. No results
+6. To solve that : PUT /index/_update_by_query : the simplest usage of _update_by_query just performs an update on every document in the index without changing the source. This is useful to pick up a new property or some other online mapping change. 
+
+
 ### Cat API
 
 ```
