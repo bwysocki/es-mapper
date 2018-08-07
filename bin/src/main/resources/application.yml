@@ -1,0 +1,4 @@
+spring:
+ data:
+  jest:
+   uri: http://18.196.61.31:9300

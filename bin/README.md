@@ -59,12 +59,12 @@ PUT /indexName
 POST /indexName/_doc
 {}
 
-//with specified ID / replacing:
-PUT /indexName/_doc/{id}
+//with specified ID / replacing: 
+PUT /indexName/_doc/{id} 
 {}
 ```
 
-- RETRIVING:
+- RETRIVING: 
 
 ```
 GET /indexName/_doc/{id}
@@ -73,11 +73,11 @@ GET /indexName/_doc/{id}
 - SEARCHING
 
 ```
-GET /indexName/_doc/{api}
+GET /indexName/_doc/{api} 
 //Example: GET /biomarkers/_doc/_search
 ```
 
-- UPDATING
+- UPDATING 
 
 ```
 POST biomarkers/_doc/BIO-1/_update
@@ -116,7 +116,7 @@ POST biomarkers/_doc/BIO-1/_update
 
 ```
 DELETE biomarkers/_doc/BIO-1
-POST biomarkers/_delete_by_query
+POST biomarkers/_delete_by_query 
 {
 	"query" : {
 		"match" : {
@@ -132,7 +132,7 @@ DELETE biomarkers <-- deletes the whole index
 
 - BATCH INSERT
 ```
-POST biomarkers/_doc/_bulk
+POST biomarkers/_doc/_bulk 
 { "index": { "_id": "BIO-1" } }
 { "name": "My biomarker" }
 { "index": { "_id": "BIO-2" } }
@@ -141,7 +141,7 @@ POST biomarkers/_doc/_bulk
 
 - BATCH UPDATE
 ```
-POST biomarkers/_doc/_bulk
+POST biomarkers/_doc/_bulk 
 { "update": { "_id": "BIO-1" } }
 { "doc": { "importance": "HIGH" }}
 { "update": { "_id": "BIO-2" } }
@@ -192,55 +192,6 @@ Data types:
 - completion (for autocomplete functionality)
 - attachment
 
-Adding mappings: (mappings can not be changed)
-
-```
-PUT /indexName/_doc/_mapping 
-{
-	"properties": {
-		"discount" : {
-			"type": "double"
-		}
-	}
-}
-``` - to existing indices
-
-```
-PUT /indexName
-{
-	"mappings": {
-		"_doc" : {
-			"dynamic": false,
-			"properties": {
-				"discount" : {
-					"type": "double"
-				}
-			}
-		}
-	}
-}
-``` - to existing indices
-
-Mappings parameters:
-- coerce: attempts to clean up dirty values to fit the datatype of a field
-- copy_to: the values of multiple fields can be copied into a group field, which can then be queried as a single field 
-- dynamic
-- properties
-- norms: Norms store various normalization factors that are later used at query time in order to compute the score of a document relatively to a query. Although useful for scoring, norms also require quite a lot of disk (typically in the order of one byte per document per field in your index, even for documents that don’t have this specific field). As a consequence, if you don’t need scoring on a specific field, you should disable norms on that field. In particular, this is the case for fields that are used solely for filtering or aggregations
-- format
-- null_values: something like 'default'
-- fields: it is often useful to index the same field in different ways for different purposes. This is the purpose of multi-fields. For instance, a string field could be mapped as a text field for full-text search, and as a keyword field for sorting or aggregations:
-
-
-Dynamic problem mapping:
-1. Disable dynamic mapping
-2. Add doc to index with some 'field'
-3. Add mapping for that 'field'
-4. Search for that 'field'
-5. No results
-6. To solve that : PUT /index/_update_by_query : the simplest usage of _update_by_query just performs an update on every document in the index without changing the source. This is useful to pick up a new property or some other online mapping change. 
-
-
 ### Cat API
 
 ```
@@ -253,14 +204,3 @@ GET /_cat/shards?v - show all (primary + replica shards)
 
 ### Cluster API
 
-
-### Text analysis
-
-When you insert a new text to ElasticSearch - it is analysed: new doc -> analysis -> stored doc (inverted index)
-
-Analysis consists of 3 steps:
-- character filter: some <strong>important</strong> value => some important value
-- tokenizer: My wife's birthday => [My, wife, birthday] - tokenizer remembers also position of the words
-- token filter => [My, wife, birthday] => [wife, birthday] - very popular is synonym token filter
-
-In many scenarios the standard analyser works fine. Standard analyser has no character filter. The tokenizer breaks words mainly by whitespace (also uses some break characters). As token filter, standard analyser uses only lowercase token filter. 
