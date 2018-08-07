@@ -263,3 +263,23 @@ Analysis consists of 3 steps:
 - token filter => [My, wife, birthday] => [wife, birthday] - very popular is synonym token filter
 
 In many scenarios the standard analyser works fine. Standard analyser has no character filter. The tokenizer breaks words mainly by whitespace (also uses some break characters). As token filter, standard analyser uses only lowercase token filter. 
+
+Analysis API:
+
+```
+POST _analyze
+{
+  "char_filter": ["html_strip"], 
+  "tokenizer": "standard", 
+  "filter": ["lowercase"],
+  "text": "<strong>ble</strong> Ble's im, very important." 
+} <-- if we want to configure analyzer
+
+POST _analyze
+{
+  "analyzer": "standard", 
+  "text": "<strong>ble</strong> Ble's im, very important." 
+} <-- if we want to test ready analyzer
+
+```
+
