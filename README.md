@@ -217,8 +217,8 @@ PUT /indexName
 			}
 		}
 	}
-}
-``` - to existing indices
+}  - to new indices
+```
 
 Mappings parameters:
 - coerce: attempts to clean up dirty values to fit the datatype of a field
