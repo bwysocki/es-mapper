@@ -205,5 +205,13 @@ GET /_cat/shards?v - show all (primary + replica shards)
 ### Cluster API
 
 
-### Something other
-### My next steps
+### Text analysis
+
+When you insert a new text to ElasticSearch - it is analysed: new doc -> analysis -> stored doc (inverted index)
+
+Analysis consists of 3 steps:
+- character filter: some <strong>important</strong> value => some important value
+- tokenizer: My wife's birthday => [My, wife, birthday] - tokenizer remembers also position of the words
+- token filter => [My, wife, birthday] => [wife, birthday] - very popular is synonym token filter
+
+In many scenarios the standard analyser works fine. Standard analyser has no character filter. The tokenizer breaks words mainly by whitespace (also uses some break characters). As token filter, standard analyser uses only lowercase token filter. 
