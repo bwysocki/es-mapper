@@ -202,10 +202,9 @@ PUT /indexName/_doc/_mapping
 			"type": "double"
 		}
 	}
-}
-``` - to existing indices
+} - to existing indices
 
-```
+
 PUT /indexName
 {
 	"mappings": {
