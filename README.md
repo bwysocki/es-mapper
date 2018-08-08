@@ -291,5 +291,16 @@ Character Filters:
 Tokenizers:
 * word oriented
   * standard
+  * letter - tokenize when encounter not letter: i'm in => i, m, in
+  * lowercase - as above + lowercase
+  * whitespace - when encounter whitespace
+  * uax_url_email - like standard but treats URLs and emails as signle tokens
 * partial word oriented
-* structured text
+  * ngram - break text into words when encountering certain character and them emits N-grams of specific length. Red wine => Re, Red, ed, wi, win, wine, in, ine, ne
+  * edge_ngram - like above but generates ngram only for the beginning. Red wine => Re, Red, wi, win, wine
+* structured text - used for structured text such as email, zip codes, identifiers etc
+  * keyword - doesnt do anything :)
+  * pattern - regex to split text into terms
+  * path_hierarchy - splits hierarchical values and emits a term for each component in the tree: /a/b/c => /a, /a/b, /a/b/c
+
+  For more details [see elasticsearch manual](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-tokenizers.html)
