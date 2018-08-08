@@ -289,7 +289,7 @@ Character Filters:
 - pattern_replace - like above but uses regex
 
 Tokenizers:
-- word oriented
--- standard
-- partial word oriented
-- structured text
+* word oriented
+  * standard
+* partial word oriented
+* structured text
