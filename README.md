@@ -195,7 +195,7 @@ Data types:
 Adding mappings: (mappings can not be changed)
 
 ```
-PUT /indexName/_doc/_mapping 
+PUT /indexName/_doc/_mapping
 {
 	"properties": {
 		"discount" : {
@@ -222,7 +222,7 @@ PUT /indexName
 
 Mappings parameters:
 - coerce: attempts to clean up dirty values to fit the datatype of a field
-- copy_to: the values of multiple fields can be copied into a group field, which can then be queried as a single field 
+- copy_to: the values of multiple fields can be copied into a group field, which can then be queried as a single field
 - dynamic
 - properties
 - norms: Norms store various normalization factors that are later used at query time in order to compute the score of a document relatively to a query. Although useful for scoring, norms also require quite a lot of disk (typically in the order of one byte per document per field in your index, even for documents that don’t have this specific field). As a consequence, if you don’t need scoring on a specific field, you should disable norms on that field. In particular, this is the case for fields that are used solely for filtering or aggregations
@@ -237,7 +237,7 @@ Dynamic problem mapping:
 3. Add mapping for that 'field'
 4. Search for that 'field'
 5. No results
-6. To solve that : PUT /index/_update_by_query : the simplest usage of _update_by_query just performs an update on every document in the index without changing the source. This is useful to pick up a new property or some other online mapping change. 
+6. To solve that : PUT /index/_update_by_query : the simplest usage of _update_by_query just performs an update on every document in the index without changing the source. This is useful to pick up a new property or some other online mapping change.
 
 
 ### Cat API
@@ -262,24 +262,34 @@ Analysis consists of 3 steps:
 - tokenizer: My wife's birthday => [My, wife, birthday] - tokenizer remembers also position of the words
 - token filter => [My, wife, birthday] => [wife, birthday] - very popular is synonym token filter
 
-In many scenarios the standard analyser works fine. Standard analyser has no character filter. The tokenizer breaks words mainly by whitespace (also uses some break characters). As token filter, standard analyser uses only lowercase token filter. 
+In many scenarios the standard analyser works fine. Standard analyser has no character filter. The tokenizer breaks words mainly by whitespace (also uses some break characters). As token filter, standard analyser uses only lowercase token filter.
 
 Analysis API:
 
 ```
 POST _analyze
 {
-  "char_filter": ["html_strip"], 
-  "tokenizer": "standard", 
+  "char_filter": ["html_strip"],
+  "tokenizer": "standard",
   "filter": ["lowercase"],
-  "text": "<strong>ble</strong> Ble's im, very important." 
+  "text": "<strong>ble</strong> Ble's im, very important."
 } <-- if we want to configure analyzer
 
 POST _analyze
 {
-  "analyzer": "standard", 
-  "text": "<strong>ble</strong> Ble's im, very important." 
+  "analyzer": "standard",
+  "text": "<strong>ble</strong> Ble's im, very important."
 } <-- if we want to test ready analyzer
 
 ```
 
+Character Filters:
+- html_strip
+- mapping - replaces values based on a supplied list of values and their replacements
+- pattern_replace - like above but uses regex
+
+Tokenizers:
+- word oriented
+-- standard
+- partial word oriented
+- structured text
