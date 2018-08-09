@@ -304,25 +304,3 @@ Tokenizers:
   * path_hierarchy - splits hierarchical values and emits a term for each component in the tree: /a/b/c => /a, /a/b, /a/b/c
 
   For more details [see elasticsearch manual](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-tokenizers.html)
-
-Token filters:
-- lowercase
-- uppercase
-- nGream: Red => [R, Re, Red, e, ed] - the same as tokenizer - for flexibility
-- edgeNGram
-- stop - removes stop words
-- word_delimeter - splits words into subwords Wi-Fi => [Wi, Fi]
-- stemmer - drinking => drink
-- keyword_marker - protects some words from being modified by stemmer
-- snowball - stem words like stemmer but based on other algorithm (Snowball)
-- synonym - happy -> happy/delighted
-- trim
-
-Analyzers:
-- standard
-- simple
-- stop - like simple but also remove stop words
-- language analizer - group - for instance English (stemming)
-- keyword - doesnt do anything
-- pattern
-- whitespace
