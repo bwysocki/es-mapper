@@ -326,3 +326,27 @@ Analyzers:
 - keyword - doesnt do anything
 - pattern
 - whitespace
+
+Creating analyzer/token filter during index creation - they will be available in indexName:
+
+```
+PUT /indexName
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "myAnalyzer": {
+          "type": "standard",
+          "stopwords": "english" <-- configuration for standard analyzer
+        }
+      },
+      "filter": { <-- for token filter
+        "myTokenFilter": {
+          "type": "stemmer",
+          "name": english
+        }
+      }
+    }
+  }
+}
+```
