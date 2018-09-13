@@ -335,9 +335,19 @@ PUT /indexName
   "settings": {
     "analysis": {
       "analyzer": {
-        "myAnalyzer": {
+        "myAliasAnalyzer": {
           "type": "standard",
           "stopwords": "english" <-- configuration for standard analyzer
+        },
+        "myCustomAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "char_filter": [
+            "html_strip"
+          ],
+          "filter": [
+            "standard", "lowercase", "trim", "myTokenFilter"
+          ]
         }
       },
       "filter": { <-- for token filter
@@ -350,3 +360,63 @@ PUT /indexName
   }
 }
 ```
+
+- if we need to add analyzer/filter/etc to existing indices, we need to close index in first step.
+
+
+Using analyzers in mappings:
+
+```
+PUT /indexName/_doc/_mapping
+{
+	"properties": {
+		"someText" : {
+			"type": "text",
+      "analyzer": "myCustomAnalyzer"
+		}
+	}
+}
+```
+
+### Searching
+
+```
+GET /indexName/_doc/_search
+{
+	"query": {
+		"match" : {
+			"description": {
+        "value": "my brother"
+      }
+		}
+	}
+}
+```
+
+Query types:
+- match
+- match_all
+- term - exact term in the inverted index
+
+Match vs term queries
+- match query goes through the same analyzis as indexed text
+- term is checked directly in inverted index
+
+Debugging searching
+```
+GET /indexName/_doc/{id}/_explain
+{
+	"query": {
+		"match" : {
+			"description": {
+        "value": "my brother"
+      }
+		}
+	}
+}
+``` -- the response tells why the document is / is not in the result
+
+
+Context:
+- query context - how well the docs match - relevance
+- filter context - do the docs match - no relevance (dates, staus, ranges) - can be cached
